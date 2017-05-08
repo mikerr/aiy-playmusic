@@ -16,7 +16,7 @@ class play(object):
 
         track = voice_command.replace(self.keyword, '', 1)
 
-        p = subprocess.Popen(["/usr/local/bin/mpsyt",""],stdin=subprocess.PIPE)
+        p = subprocess.Popen(["/usr/local/bin/mpsyt",""],stdin=subprocess.PIPE,stdout=subprocess.PIPE)
 
         p.stdin.write(bytes('/' + track + '\n1\n', 'utf-8'))
         p.stdin.flush()
@@ -24,11 +24,12 @@ class play(object):
         gpio.setmode(gpio.BCM)
         gpio.setup(23, gpio.IN)
 
-        while ( gpio.input(23) ):
+        while gpio.input(23):
              time.sleep(1)
 
-        p.stdin.write(bytes('exit\n', 'utf-8'))
-        p.stdin.flush()
+        pkill = subprocess.Popen(["/usr/bin/pkill","omxplayer"],stdin=subprocess.PIPE)
+        p.kill()
+
         
         
     # =========================================
