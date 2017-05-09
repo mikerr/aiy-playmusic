@@ -36,4 +36,4 @@ class play(object):
     # Makers! Add your own voice commands here.
     # =========================================
 
-actor.add_keyword(_('play'), play(say,_('play')))
+    actor.add_keyword(_('play'), play(say,_('play')))
